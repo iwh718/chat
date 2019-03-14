@@ -19,7 +19,7 @@ if (isset($_POST['content'])) {
 }
 
 
-/****数据库方式
+
 require 'conn.inc';
 session_start();
 if (isset($_POST['content'])) {
@@ -27,4 +27,4 @@ if (isset($_POST['content'])) {
     $sql = "INSERT INTO talkroom (content,uid) VALUES ('{$content}','{$_SESSION['uid']}');";
     $res = mysqli_query($link, $sql);
 }
-*****/
+

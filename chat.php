@@ -45,6 +45,7 @@ if (empty($_SESSION['username'])) {
                 if (confirm("您确定要关闭本页吗？")) {
                     $.post("logout.php", {"uid": uid}, function (data) {
                         var obj = JSON.parse(data);
+                        console.log(data);
                         if (obj.res == 0) {
                             window.location.reload();
                         } else if (obj.res == 1) {
@@ -68,11 +69,14 @@ if (empty($_SESSION['username'])) {
                         $("#chatshow").html(chatcontent);
                         bottom();
                     }
-                    getData("");
+                   
                 });
             }
 
-            getData("one");
+            setInterval(function(){
+                    console.log("1111");
+                    getData("one");
+            },2000);
 
             $("#userlist p").click(function () {
                 $("#content").val("@" + $(this).text() + " ");
@@ -88,11 +92,13 @@ if (empty($_SESSION['username'])) {
         <h1>用户列表</h1>
         <div>
             <?php
+            set_time_limit(0);
             $sql = "select * from member where islogin = '1'";
             $res = mysqli_query($link, $sql);
             while ($row = mysqli_fetch_assoc($res)) {
                 echo '<p>' . $row['username'] . '</p>';
             }
+            sleep(1);
             ?>
         </div>
     </div>

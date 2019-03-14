@@ -30,7 +30,6 @@ if (file_exists($filename)) {
     exit(json_encode($data));
 }
 
-/****数据库方式
 require 'conn.inc';
 
 if ($_POST['msg'] == "one") {
@@ -82,4 +81,3 @@ function getData($link)
     $count = mysqli_fetch_row($res);
     return $count[0];
 }
-****/
