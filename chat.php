@@ -26,13 +26,15 @@ if (empty($_SESSION['username'])) {
     <script>
         var uid = '<?php echo $_SESSION['uid'] ?>';
         $(function () {
-           
+             var num = 0;
             
            
             function bottom() {
                 var div = document.getElementById("chatshow");
+               $(div).animate({
+                scrollTop:div.scrollHeight
+               },1500)
                
-                div.scrollTop = div.scrollHeight;
             }
 
             $("#post").click(function () {
@@ -70,29 +72,36 @@ if (empty($_SESSION['username'])) {
                 }
             });
             function getData(msg) {
+               
                 $.post("get.php", {"msg": msg}, function (data) {
                     if (data) {
+                       
                         var chatcontent = '';
                         var obj = JSON.parse(data);
                         $.each(obj, function (key, val) {
                             if (val['uid'] == uid) {
                                 chatcontent += "<li class='right'>" + val['content'] + "</li>";
                             } else {
-                                chatcontent += "<li class='left'>" + val['username'] + "：" + val['content'] + "</li>";
+                                chatcontent += "<li class='left'><img class=\"userLogo\" src=\"./image/user.jpeg\" />" + "<p class=\"p_name\">" + val['username'] + "</p>"+ "<p class=\"p_content\">" + val['content'] + "</p></li>";
                             }
                         });
                         $("#chatshow").html(chatcontent);
-                        bottom();
+                        if(obj.length > num){
+                            num = obj.length;
+                            bottom();
+                           
+                        }
+                        
                     }
                    
                 });
             }
 
-           var timer_ajax = setInterval(function(){
+          var timer_ajax = setInterval(function(){
                     console.log("ajax轮询正在运行");
                     getData("one");
-            },1500);
-
+            },2000);
+          
             $("#userlist p").click(function () {
                 $("#content").html("@" + $(this).html() + " ");
             });
@@ -127,6 +136,9 @@ if (empty($_SESSION['username'])) {
        file:".jpg"
     }]
 });
+
+          
+
         });
 
 
@@ -134,9 +146,9 @@ if (empty($_SESSION['username'])) {
 </head>
 <body>
 <div id="main">
-    <h3 style="color: #f7671d">欢迎来到聊天室！</h3>
+    <h3 style="color: #f7671d"><?php echo $_SESSION['username']; ?> 欢迎来到聊天室！</h3>
     <div id="userlist">
-        <h2>用户列表</h2>
+        <h2>在线用户</h2>
         <div>
             <?php
             set_time_limit(0);
@@ -145,7 +157,7 @@ if (empty($_SESSION['username'])) {
             while ($row = mysqli_fetch_assoc($res)) {
                 echo '<p>' . $row['username'] . '</p>';
             }
-            sleep(1);
+            
             ?>
         </div>
     </div>
