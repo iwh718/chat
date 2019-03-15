@@ -71,7 +71,7 @@ if (!empty($_SESSION['username'])) {
     </div>
 </div>
 <div class="common_footer">
-    Powered by likangjun.com | Copyright © All rights reserved.
+    Powered by i | Copyright © All rights reserved.
 </div>
 
 </body>

@@ -11,7 +11,7 @@ if (isset($_POST["name"])) {
         if ($user['password'] == $pwd) {
             mysqli_query($link, "update member set islogin = '1' where username = '{$_POST['name']}'");
             $_SESSION['username'] = $_POST["name"];
-            $_SESSION['uid'] = $user['id'];
+            $_SESSION['uid'] = $user['Id'];
             $data['res'] = 0;
             $data['msg'] = "登录成功";
         } else {
@@ -24,7 +24,7 @@ if (isset($_POST["name"])) {
         if ($result) {
             $register = getUser($_POST["name"], $link);
             $_SESSION['username'] = $_POST["name"];
-            $_SESSION['uid'] = $register['id'];
+            $_SESSION['uid'] = $register['Id'];
             $data['res'] = 0;
             $data['msg'] = "注册成功";
         } else {

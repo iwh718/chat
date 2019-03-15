@@ -2,7 +2,7 @@
 
 require 'conn.inc';
 session_start();
-$result = mysqli_query($link, "update member set islogin = '0' where id = '{$_SESSION['uid']}'");
+$result = mysqli_query($link, "update member set islogin = '0' where Id = '{$_SESSION['uid']}'");
 if ($result) {
     session_destroy();
     $data['res'] = 0;

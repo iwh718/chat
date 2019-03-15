@@ -2,6 +2,9 @@ body{
     background-image: url('../image/bg.jpg');
     background-size: cover;
 }
+img{
+    height: 50px!important;
+}
 body {
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 14px;

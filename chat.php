@@ -9,16 +9,29 @@ if (empty($_SESSION['username'])) {
 ?>
 <html>
 <head>
-    <title>Jun-McGrady聊天室</title>
+    <title>聊天室</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="user-scalable=no"/>
-    <script src="jquery-1.6.min.js"></script>
+    
     <link rel="stylesheet" href="css/style.css" media="screen" type="text/css"/>
+        <link rel="stylesheet" href="lib/css/bootstrap.css"/>
+    <link rel="stylesheet" href="lib/css/jquery.mCustomScrollbar.min.css"/>
+    <link rel="stylesheet" href="dist/css/jquery.emoji.css"/>
+    <link rel="stylesheet" href="lib/css/railscasts.css"/>
+<script src="lib/script/jquery.min.js"></script>
+<script src="lib/script/highlight.pack.js"></script>
+<script src="lib/script/jquery.mousewheel-3.0.6.min.js"></script>
+<script src="lib/script/jquery.mCustomScrollbar.min.js"></script>
+<script src="dist/js/jquery.emoji.min.js"></script>
     <script>
         var uid = '<?php echo $_SESSION['uid'] ?>';
         $(function () {
+           
+            
+           
             function bottom() {
                 var div = document.getElementById("chatshow");
+               
                 div.scrollTop = div.scrollHeight;
             }
 
@@ -32,17 +45,19 @@ if (empty($_SESSION['username'])) {
                 }
             });
             function postMsg() {
-                var content = $("#content").val();
-                if (!$.trim(content)) {
-                    alert('请填写内容');
-                    return false;
+                var content = $("#content").html();
+               
+
+                if(content.length<=0){
+                    content = "...";
                 }
-                $("#content").val("");
+              // console.log( $('div').html(content).text());
+                $("#content").html("");
                 $.post("ajax.php", {content: content});
             }
 
             $(".close").click(function () {
-                if (confirm("您确定要关闭本页吗？")) {
+                if (confirm("您确定要退出聊天室？")) {
                     $.post("logout.php", {"uid": uid}, function (data) {
                         var obj = JSON.parse(data);
                         console.log(data);
@@ -73,14 +88,45 @@ if (empty($_SESSION['username'])) {
                 });
             }
 
-            setInterval(function(){
-                    console.log("1111");
+           var timer_ajax = setInterval(function(){
+                    console.log("ajax轮询正在运行");
                     getData("one");
-            },2000);
+            },1500);
 
             $("#userlist p").click(function () {
-                $("#content").val("@" + $(this).text() + " ");
+                $("#content").html("@" + $(this).html() + " ");
             });
+            $('#btn_font').click(function(){
+                $('#select_font').toggle(500);
+                   var type =  $('#select_font').val();
+                   console.log(type);
+                   $('body').css({
+                    "font-family":type
+                   })
+
+            });
+            $("#content").emoji({
+    button: "#btn_emoji",
+    showTab: true,
+    animation: 'slide',
+    icons: [{
+        name: "QQ表情",
+        path: "dist/img/qq/",
+        maxNum: 91,
+        excludeNums: [41, 45, 54],
+        file: ".gif"
+    },{
+        name:"贴吧表情",
+        path:"dist/img/tieba/",
+        maxNum:50,
+       file:".jpg"
+    },{
+        name:"个性图包",
+        path:"dist/img/doutu/",
+        maxNum:5,
+       file:".jpg"
+    }]
+});
         });
 
 
@@ -88,8 +134,9 @@ if (empty($_SESSION['username'])) {
 </head>
 <body>
 <div id="main">
+    <h3 style="color: #f7671d">欢迎来到聊天室！</h3>
     <div id="userlist">
-        <h1>用户列表</h1>
+        <h2>用户列表</h2>
         <div>
             <?php
             set_time_limit(0);
@@ -107,9 +154,19 @@ if (empty($_SESSION['username'])) {
         <ul class="chat-thread" id="chatshow">
         </ul>
         <div style="margin-top: 20px;">
-            <textarea name="content" id="content"></textarea>
+            <button id="btn_emoji" class="btn btn-sm btn-default">:)</button>
+         <button id="btn_font" class="btn btn-default">切换字体</button>
+           <button id="post" class="btn btn-success">发布</button>
+    <select  class="form-control" id="select_font" style="display: none;">
+      <option value="微软雅黑" >默认</option>
+      <option value="楷体">楷体</option>
+      <option value="黑体">黑体</option>
+      <option value="宋体">宋体</option>
+    </select>
+            <div name="content" id="content" contenteditable="true"></div>
         </div>
-        <span id="post">发布</span>
+         
+      
     </div>
 </div>
 

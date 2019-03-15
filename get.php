@@ -23,7 +23,7 @@ if (file_exists($filename)) {
 } else {
     $file = fopen($filename, "w");
     $con['username'] = "系统消息";
-    $con['content'] = "欢迎来到Jun-McGrady聊天室";
+    $con['content'] = "欢迎来到聊天室";
     $data[] = $con;
     fwrite($file, json_encode($data));
     fclose($file);
@@ -37,7 +37,7 @@ if ($_POST['msg'] == "one") {
     if ($data == "[]") {
         $con[] = array(
             'username' => "系统消息",
-            'content' => "欢迎来到Jun-McGrady聊天室"
+            'content' => "欢迎来到聊天室"
         );
         $data = json_encode($con);
     }
@@ -62,7 +62,7 @@ function getContent($link)
     $cres = mysqli_query($link, $csql);
     $data[] = array(
         'username' => "系统消息",
-        'content' => "欢迎来到Jun-McGrady聊天室"
+        'content' => "欢迎来到聊天室"
     );
     while ($row = mysqli_fetch_assoc($cres)) {
         $data[] = array(
