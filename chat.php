@@ -1,6 +1,7 @@
 <?php
 require 'conn.inc';
 session_start();
+date_default_timezone_set('PRC'); //设置中国时区 
 if (empty($_SESSION['username'])) {
     header("HTTP/1.1 303 See Other");
     header("Location: index.php");
@@ -48,8 +49,9 @@ if (empty($_SESSION['username'])) {
             });
             function postMsg() {
                 var content = $("#content").html();
-               
-
+                var lastStr = '<small class=\'date\'>'+'<?php echo date("Y-m-d g:h:m") ?>'+'</small>';
+                console.log(lastStr);
+                content+=lastStr;
                 if(content.length<=0){
                     content = "...";
                 }
@@ -146,7 +148,7 @@ if (empty($_SESSION['username'])) {
 </head>
 <body>
 <div id="main">
-    <h3 style="color: #f7671d"><?php echo $_SESSION['username']; ?> 欢迎来到聊天室！</h3>
+    <h3 style="color: #f7671d"><?php echo $_SESSION['username']; ?> 欢迎来到聊天室！ <?php echo date("Y-m-d") ?></h3>
     <div id="userlist">
         <h2>在线用户</h2>
         <div>
@@ -175,7 +177,7 @@ if (empty($_SESSION['username'])) {
       <option value="黑体">黑体</option>
       <option value="宋体">宋体</option>
     </select>
-            <div name="content" id="content" contenteditable="true"></div>
+            <div name="content" id="content" contenteditable="true"> </div>
         </div>
          
       

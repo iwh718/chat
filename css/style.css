@@ -100,10 +100,17 @@ body {
 } 
 .left .p_name{
     position: absolute;
-    left: -75px;
-    bottom: -25px;
-    color:  #0AD5C1
+    left: -30px;
+    bottom: -30px;
+    color:  #0AD5C1;
+    opacity: .5
 
+}
+.date{
+    color: #000;
+    opacity: 0.5;
+    border-top: 1px solid rgba(0,0,0,0.3);
+    display: block;
 }
 
 
@@ -144,6 +151,11 @@ img{
     .message{
         width: 80%;
     }
+    #main{
+    max-width:100%;
+    margin: 0;
+}
+
 
 }
 /* Medium and large screens */
@@ -152,7 +164,7 @@ img{
         height: 60%;
     }
      .message{
-        width: 60%;
+        width: 70%;
     }
 }
 .credits{
@@ -185,31 +197,31 @@ img{
     overflow: auto;
     margin-top: 30px;
 }
-#post{
-   
-}
+
 #content{
+    border-radius: 10px;
     width: 100%;
     overflow: hidden;
     height: 150px;
+    margin-top: 5px;
     box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.15) inset;    
     background-color: #fff;
     font-size: 18px;
 }
 #content:focus{
-    border: 2px #f7671d solid; 
+    border: 2px #0EC879 solid; 
 }
 #main{
-    max-width: 75%;
-    margin: 30px auto 0 20%;
+    max-width:90%;
+    margin: 30px auto 0 10%;
 }
 .close{
     background: url(../image/close.png);
     width: 30px;
     height: 30px;
-    position: absolute;
-    right: 5%;
-    top: 40px;
+    position: fixed;
+    left: 5%;
+    bottom: 20%;
     display: block;
     background-size: 30px;
     background-repeat: no-repeat;
